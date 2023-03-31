@@ -10,7 +10,7 @@ function HomeScreen() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.100.40:3000/products');
+      const response = await fetch('http://192.168.100.40:3000/products/');
       const data = await response.json();
 
       // Store the data in AsyncStorage
@@ -27,6 +27,11 @@ function HomeScreen() {
 
   useEffect(() => {
     fetchData();
+    // Fetch data every 10 seconds
+  const intervalId = setInterval(fetchData, 10000);
+
+  // Clear interval on unmount
+  return () => clearInterval(intervalId);
   }, []);
 
   console.log(products)
@@ -37,8 +42,13 @@ function HomeScreen() {
         <View style={styles.itemimage}>
           <Image source={{ uri: item.Front }} style={styles.image} />
         </View>
+        {item.NewArrivals === "Yes" && 
+        <Text style={styles.sale}>{item.NewArrivals === "Yes" ? "New" : null}</Text>
+    }
+        <Text style={styles.brand}>{item.Brand}</Text>
         <Text style={styles.name}>{item.Name}</Text>
         <Text style={styles.price}>${item.Price}</Text>
+        
       </View>
     );
   };
@@ -88,7 +98,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     elevation: 5,
     marginLeft: '5%',
-    gap: 2,
+    paddingTop:5,
+    gap: 5,
     marginBottom: 10,
   },
   itemimage:{
@@ -116,17 +127,47 @@ const styles = StyleSheet.create({
     marginRight: 0
   },
   name: {
+    
+    width: 120,
     flex: 1,
+    textAlign: 'center',
     justifyContent: 'center',
     fontSize: 13,
     paddingBottom: 5,
-    marginLeft: '20%',
+    alignSelf: 'center',
     fontWeight: 'bold'
+  },
+
+  brand: {
+    
+    width: 120,
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+    fontSize: 13,
+    color: '#555555',
+    paddingTop: 5,
+    paddingBottom: 0,
+    alignSelf: 'center',
+    fontWeight: '600'
+  },
+  sale: {
+    
+    width: 120,
+    flex: 1,
+    textAlign: 'center',
+    justifyContent: 'center',
+    fontSize: 15,
+    color: 'red',
+    marginTop: 0,
+    paddingTop: 0,
+    alignSelf: 'center',
+    fontWeight: '600'
   },
   price: {
     justifyContent: 'center',
-
-    marginLeft: '35%',
+    flex:1,
+    textAlign: 'center',
     fontSize: 16
   },
   bannerContainer: {
