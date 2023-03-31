@@ -3,19 +3,24 @@
     "name": "Ecommerce",
     "slug": "Ecommerce",
     "version": "1.0.0",
+    "assets": [
+      "../assets/sales.jpg"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#fffff"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true
+      
+      
     },
     "android": {
       "adaptiveIcon": {
